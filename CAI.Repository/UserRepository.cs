@@ -20,13 +20,12 @@ namespace CAI.Repository
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@UserName", user.UserName);
-                parameters.Add("@Emaild", user.EmailId);
-                parameters.Add("@UserEmail", user.Password);
+                parameters.Add("@EmailId", user.EmailId);
+                parameters.Add("@Password", user.Password);
+                parameters.Add("@MobileNo", user.MobileNo);
                 parameters.Add("@IsActivated", user.IsActivated);
                 parameters.Add("@IsDeleted", user.IsDeleted);
-                //conn.Execute("AddUser", parameters, commandType: CommandType.StoredProcedure);
-                //return true;
-                SqlMapper.Execute(con, "AddUser",  parameters, commandType:StoredProcedure);
+                SqlMapper.Execute(con, "usp_AddUsers",  parameters, commandType:StoredProcedure);
                 return true;
             }
             catch (Exception ex)
@@ -42,9 +41,8 @@ namespace CAI.Repository
 
         public IList<UserEntity> GetAllUser()
         {
-            IList<UserEntity> userList = SqlMapper.Query<UserEntity>(con, "GetAllUsers", commandType:StoredProcedure).ToList();
+            IList<UserEntity> userList = SqlMapper.Query<UserEntity>(con, "usp_UserSelectAll", commandType:StoredProcedure).ToList();
             return userList;
-            throw new NotImplementedException();
         }
 
         public UserEntity GetUserById(int userId)
@@ -52,10 +50,10 @@ namespace CAI.Repository
             try
             {
                 DynamicParameters parameters = new DynamicParameters();
-                parameters.Add("@CustomerID", userId);
-                return SqlMapper.Query<UserEntity>((SqlConnection)con, "GetUserById", parameters, commandType:StoredProcedure).FirstOrDefault();
+                parameters.Add("@Id", userId);
+                return SqlMapper.Query<UserEntity>((SqlConnection)con, "usp_GetUserById", parameters, commandType:StoredProcedure).FirstOrDefault();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 throw;
             }
@@ -70,9 +68,10 @@ namespace CAI.Repository
                 parameters.Add("@UserName", user.UserName);
                 parameters.Add("@EmailId", user.EmailId);
                 parameters.Add("@Password", user.Password);
+                parameters.Add("@MobileNo", user.MobileNo);
                 parameters.Add("@IsActivated", user.IsActivated);
                 parameters.Add("@IsDeleted", user.IsDeleted);
-                SqlMapper.Execute(con, "UpdateUser",  parameters, commandType:StoredProcedure);
+                SqlMapper.Execute(con, "usp_UpdateUser",  parameters, commandType:StoredProcedure);
                 return true;
             }
             catch (Exception ex)

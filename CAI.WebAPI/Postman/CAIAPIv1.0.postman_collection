@@ -1,0 +1,185 @@
+{
+	"info": {
+		"_postman_id": "024ca434-22f8-43bd-be71-14ba0119c349",
+		"name": "CAIAPI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"username\": \"rnunna\",\r\n    \"password\": \"Password@123\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:63859/api/user/authenticate",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "63859",
+					"path": [
+						"api",
+						"user",
+						"authenticate"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:63859/api/user",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1Nzg0NTgxMjgsImV4cCI6MTU3OTA2MjkyOCwiaWF0IjoxNTc4NDU4MTI4fQ.Y6Or1O_JM2yL-Ud5FlY1wUE7ry7J3xWuPsJltcJ3Wp8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Id\":1,\n\t\"UserName\":\"rnunna\",\n\t\"EmailId\":\"ramnunna@gmail.com\",\n\t\"Password\":\"Password@123\",\n\t\"MobileNo\":\"987898898\",\n\t\"IsActivated\":true,\n\t\"IsDeleted\":false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:63859/api/user",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "63859",
+					"path": [
+						"api",
+						"user"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:63859/api/user/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1Nzg0NTgxMjgsImV4cCI6MTU3OTA2MjkyOCwiaWF0IjoxNTc4NDU4MTI4fQ.Y6Or1O_JM2yL-Ud5FlY1wUE7ry7J3xWuPsJltcJ3Wp8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1Nzg0NTgxMjgsImV4cCI6MTU3OTA2MjkyOCwiaWF0IjoxNTc4NDU4MTI4fQ.Y6Or1O_JM2yL-Ud5FlY1wUE7ry7J3xWuPsJltcJ3Wp8",
+						"type": "text",
+						"disabled": true
+					}
+				],
+				"url": {
+					"raw": "http://localhost:63859/api/user/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "63859",
+					"path": [
+						"api",
+						"user",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:63859/api/user/1",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1bmlxdWVfbmFtZSI6IjEiLCJuYmYiOjE1Nzg0NTgxMjgsImV4cCI6MTU3OTA2MjkyOCwiaWF0IjoxNTc4NDU4MTI4fQ.Y6Or1O_JM2yL-Ud5FlY1wUE7ry7J3xWuPsJltcJ3Wp8",
+							"type": "string"
+						}
+					]
+				},
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"Id\":2,\n\t\"UserName\":\"rnunna\",\n\t\"EmailId\":\"ramnunna@gmail.com\",\n\t\"Password\":\"Password@123\",\n\t\"MobileNo\":\"98789889811\",\n\t\"IsActivated\":true,\n\t\"IsDeleted\":false\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:63859/api/user/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "63859",
+					"path": [
+						"api",
+						"user",
+						"2"
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "1",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

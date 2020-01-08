@@ -12,5 +12,6 @@ namespace CAI.Business.Interfaces
         bool DeleteUser(int userId);
         IList<UserEntity> GetAllUser();
         UserEntity GetUserById(int userId);
+        UserEntity AuthenticateUser(string username, string password);
     }
 }
