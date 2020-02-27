@@ -47,6 +47,7 @@ namespace CAI.WebAPI.Controllers
             return _userManager.GetUserById(id);
         }
         // POST api/user  
+        [AllowAnonymous]
         [HttpPost]
         public void Post([FromBody] UserEntity user)
         {

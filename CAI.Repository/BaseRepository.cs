@@ -11,7 +11,8 @@ namespace CAI.Repository
         protected IDbConnection con;
         public BaseRepository()
         {
-            string connectionString = @"Data Source=ANKIT\SQLEXPRESS;Initial Catalog=DataManagement;user id=sa;password=z;";
+            //string connectionString = @"Data Source=208.91.198.196;Initial Catalog=caiavt6l;user id=caiavt6l;password=@#aVISHAKE23;";
+            string connectionString = @"Data Source=Ram\Ram;Initial Catalog=DB_CAI;user id=sa;password=ssms;";
             con = new SqlConnection(connectionString);
         }
         public void Dispose()

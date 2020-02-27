@@ -65,7 +65,7 @@ namespace CAI.Repository
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Id", user.Id);
-                parameters.Add("@UserName", user.UserName);
+                parameters.Add("@UserName", user.EmailId); // for timebeing we are passing username & emailid would be same
                 parameters.Add("@EmailId", user.EmailId);
                 parameters.Add("@Password", user.Password);
                 parameters.Add("@MobileNo", user.MobileNo);
