@@ -13,6 +13,13 @@
     <ProjectReference Include="..\CAI.Business.Interface\CAI.Business.Interfaces.csproj" />
     <ProjectReference Include="..\CAI.Entities\CAI.Entities.csproj" />
     <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\CAI.Security\CAI.Security.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="LoadPay.Security">
+      <HintPath>..\..\LoadPay\LoadPay.Security\bin\Debug\netstandard2.0\LoadPay.Security.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 </Project>

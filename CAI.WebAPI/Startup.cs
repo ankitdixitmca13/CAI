@@ -1,5 +1,7 @@
 using CAI.Business;
+using CAI.Business.Contracts.Security;
 using CAI.Business.Interfaces;
+using CAI.Business.Security;
 using CAI.Entities;
 using CAI.Repository;
 using CAI.Repository.Interfaces;
@@ -10,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using WebApi.Helpers;
 
 namespace CAI.WebAPI
 {
@@ -55,6 +56,7 @@ namespace CAI.WebAPI
             });
 
             // configure DI for application services
+            //services.AddSingleton<IEncryptionManager, EncryptionManager>();
             services.AddSingleton<IUserManager, UserManager>();
             services.AddSingleton<IUserRepository, UserRepository>();
         }

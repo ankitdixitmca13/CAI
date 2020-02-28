@@ -1,4 +1,5 @@
-﻿using CAI.Business.Interfaces;
+﻿using CAI.Business.Contracts.Security;
+using CAI.Business.Interfaces;
 using CAI.Entities;
 using CAI.Repository.Interfaces;
 using Microsoft.Extensions.Options;
@@ -17,10 +18,13 @@ namespace CAI.Business
     {
         IUserRepository _userRepository;
         private readonly AppSettings _appSettings;
+        IEncryptionManager encryptionManager;
+        //public UserManager(IUserRepository userRepository, IOptions<AppSettings> appSettings, IEncryptionManager _encryptionManager)
         public UserManager(IUserRepository userRepository, IOptions<AppSettings> appSettings)
         {
             _userRepository = userRepository;
             _appSettings = appSettings.Value;
+            //encryptionManager = _encryptionManager;
         }
         public bool AddUser(UserEntity user)
         {
@@ -40,12 +44,17 @@ namespace CAI.Business
         }
         public bool UpdateUser(UserEntity user)
         {
+            //encrypt the password before send to db
+            //user.Password = encryptionManager.EncryptValue(user.Password);
             return _userRepository.UpdateUser(user);
         }
         public UserEntity AuthenticateUser(string username, string password)
         {
             var _users = _userRepository.GetAllUser();
-            var user = _users.SingleOrDefault(x => x.UserName == username && x.Password == password);
+            //string decryptPassword = encryptionManager.DecryptValue(password);
+            //var user = _users.SingleOrDefault(x => (x.EmailId==username || x.MobileNo==username) && (x.Password == decryptPassword));
+
+            var user = _users.SingleOrDefault(x => (x.EmailId == username || x.MobileNo == username) && (x.Password == password));
 
             // return null if user not found
             if (user == null)
