@@ -1,13 +1,11 @@
 ﻿using CAI.Entities;
-using CAI.Repository.Interfaces;
+using CAI.Repository.Contracts;
 using Dapper;
 using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Data.SqlClient;
 using System.Linq;
 using static System.Data.CommandType;
-using System.Data;
 
 namespace CAI.Repository
 {

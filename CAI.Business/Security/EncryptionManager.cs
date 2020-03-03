@@ -6,7 +6,7 @@ namespace CAI.Business.Security
     public class EncryptionManager: IEncryptionManager
     {
         readonly string key;
-        public EncryptionManager(string key)
+        public EncryptionManager()
         {
             this.key = key;
         }

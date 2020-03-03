@@ -7,15 +7,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.WebAPI", "CAI.WebAPI\CA
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Business", "CAI.Business\CAI.Business.csproj", "{E287E7F8-4DA9-4E94-9920-EEE8B85D8F0A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Business.Interfaces", "CAI.Business.Interface\CAI.Business.Interfaces.csproj", "{4DC37A76-6EBF-443F-A186-962499AC32F4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Business.Contracts", "CAI.Business.Interface\CAI.Business.Contracts.csproj", "{4DC37A76-6EBF-443F-A186-962499AC32F4}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Entities", "CAI.Entities\CAI.Entities.csproj", "{9719C180-70C2-4889-ABFA-7302D91D8E40}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Repository", "CAI.Repository\CAI.Repository.csproj", "{0EA5D69A-E861-4E7F-AE6E-F0DA71DD1B1E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Repository.Interfaces", "CAI.Repository.Interfaces\CAI.Repository.Interfaces.csproj", "{C0C0E668-02A3-47B0-8162-6BB74D3A5852}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Repository.Contracts", "CAI.Repository.Interfaces\CAI.Repository.Contracts.csproj", "{C0C0E668-02A3-47B0-8162-6BB74D3A5852}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CAI.Security", "CAI.Security\CAI.Security.csproj", "{B21F5C10-415B-4B13-ACFB-35A478CB8466}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAI.Security", "CAI.Security\CAI.Security.csproj", "{B21F5C10-415B-4B13-ACFB-35A478CB8466}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

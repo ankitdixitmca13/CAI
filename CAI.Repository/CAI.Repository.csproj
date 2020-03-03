@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\CAI.Entities\CAI.Entities.csproj" />
-    <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Contracts.csproj" />
   </ItemGroup>
 
 </Project>

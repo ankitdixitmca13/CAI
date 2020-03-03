@@ -13,13 +13,14 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="3.0.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.0.0" />
+    <PackageReference Include="Serilog.AspNetCore" Version="3.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CAI.Business.Interface\CAI.Business.Interfaces.csproj" />
+    <ProjectReference Include="..\CAI.Business.Interface\CAI.Business.Contracts.csproj" />
     <ProjectReference Include="..\CAI.Business\CAI.Business.csproj" />
     <ProjectReference Include="..\CAI.Entities\CAI.Entities.csproj" />
-    <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Contracts.csproj" />
     <ProjectReference Include="..\CAI.Repository\CAI.Repository.csproj" />
   </ItemGroup>
 

@@ -1,16 +1,18 @@
 using CAI.Business;
+using CAI.Business.Contracts;
 using CAI.Business.Contracts.Security;
-using CAI.Business.Interfaces;
+using CAI.Business.Email;
 using CAI.Business.Security;
 using CAI.Entities;
 using CAI.Repository;
-using CAI.Repository.Interfaces;
+using CAI.Repository.Contracts;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using Serilog;
 using System.Text;
 
 namespace CAI.WebAPI
@@ -31,8 +33,14 @@ namespace CAI.WebAPI
             services.AddControllers();
 
             // configure strongly typed settings objects
+            var connectionStringsSection = Configuration.GetSection("ConnectionStrings");
+            services.Configure<ConnectionStrings>(connectionStringsSection);
+
             var appSettingsSection = Configuration.GetSection("AppSettings");
             services.Configure<AppSettings>(appSettingsSection);
+
+            var emailSettingsSection = Configuration.GetSection("EmailSettings");
+            services.Configure<EmailSettings>(emailSettingsSection);
 
             // configure jwt authentication
             var appSettings = appSettingsSection.Get<AppSettings>();
@@ -56,9 +64,10 @@ namespace CAI.WebAPI
             });
 
             // configure DI for application services
-            //services.AddSingleton<IEncryptionManager, EncryptionManager>();
             services.AddSingleton<IUserManager, UserManager>();
             services.AddSingleton<IUserRepository, UserRepository>();
+            services.AddSingleton<IEncryptionManager,EncryptionManager>();
+            services.AddSingleton<IConfirmRegistrationEmailService, ConfirmRegistrationEmailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -71,6 +80,8 @@ namespace CAI.WebAPI
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
+            
+            app.UseSerilogRequestLogging();
 
             app.UseAuthentication();
             app.UseAuthorization();

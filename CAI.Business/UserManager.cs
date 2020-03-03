@@ -1,7 +1,7 @@
-﻿using CAI.Business.Contracts.Security;
-using CAI.Business.Interfaces;
+﻿using CAI.Business.Contracts;
+using CAI.Business.Contracts.Security;
 using CAI.Entities;
-using CAI.Repository.Interfaces;
+using CAI.Repository.Contracts;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
@@ -14,21 +14,28 @@ using WebApi.Helpers;
 
 namespace CAI.Business
 {
-    public  class UserManager: IUserManager
+    public class UserManager : IUserManager
     {
         IUserRepository _userRepository;
         private readonly AppSettings _appSettings;
-        IEncryptionManager encryptionManager;
-        //public UserManager(IUserRepository userRepository, IOptions<AppSettings> appSettings, IEncryptionManager _encryptionManager)
-        public UserManager(IUserRepository userRepository, IOptions<AppSettings> appSettings)
+        IEncryptionManager _encryptionManager;
+        IConfirmRegistrationEmailService _confirmRegistrationEmailService;
+        public UserManager(IUserRepository userRepository, IOptions<AppSettings> appSettings, IEncryptionManager encryptionManager, IConfirmRegistrationEmailService confirmRegistrationEmailService)
         {
             _userRepository = userRepository;
             _appSettings = appSettings.Value;
-            //encryptionManager = _encryptionManager;
+            _encryptionManager = encryptionManager;
+            _confirmRegistrationEmailService = confirmRegistrationEmailService;
         }
         public bool AddUser(UserEntity user)
         {
-            return _userRepository.AddUser(user);
+            var result = new bool();
+            user.Password = _encryptionManager.EncryptValue(user.Password);
+            result = _userRepository.AddUser(user);
+            //TODO : Send registratation email 
+            if (result)
+                _confirmRegistrationEmailService.SendRegistrationEmailAsync(0, user.EmailId, "", "");
+            return result;
         }
         public bool DeleteUser(int userId)
         {
@@ -51,10 +58,7 @@ namespace CAI.Business
         public UserEntity AuthenticateUser(string username, string password)
         {
             var _users = _userRepository.GetAllUser();
-            //string decryptPassword = encryptionManager.DecryptValue(password);
-            //var user = _users.SingleOrDefault(x => (x.EmailId==username || x.MobileNo==username) && (x.Password == decryptPassword));
-
-            var user = _users.SingleOrDefault(x => (x.EmailId == username || x.MobileNo == username) && (x.Password == password));
+            var user = _users.SingleOrDefault(x => (x.EmailId == username || x.MobileNo == username) && (_encryptionManager.DecryptValue(x.Password) == password));
 
             // return null if user not found
             if (user == null)

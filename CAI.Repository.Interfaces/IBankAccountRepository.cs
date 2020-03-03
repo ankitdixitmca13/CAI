@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace CAI.Repository.Interfaces
+namespace CAI.Repository.Contracts
 {
     public interface IBankAccountRepository
     {

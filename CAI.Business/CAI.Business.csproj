@@ -10,9 +10,9 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\CAI.Business.Interface\CAI.Business.Interfaces.csproj" />
+    <ProjectReference Include="..\CAI.Business.Interface\CAI.Business.Contracts.csproj" />
     <ProjectReference Include="..\CAI.Entities\CAI.Entities.csproj" />
-    <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Interfaces.csproj" />
+    <ProjectReference Include="..\CAI.Repository.Interfaces\CAI.Repository.Contracts.csproj" />
     <ProjectReference Include="..\CAI.Security\CAI.Security.csproj" />
   </ItemGroup>
 
