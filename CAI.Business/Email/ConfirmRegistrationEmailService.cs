@@ -27,8 +27,9 @@ namespace CAI.Business.Email
                 var emailTemplate = _emailSettings.EmailTemplateURL;
                 // we have read the template 
                 // wwe also generate confirm url
-                emailTemplate = "for testing purpose";
-                emailTemplate = emailTemplate.Replace("{confirmRegistrationUrl}", string.Format(_emailSettings.RegistrationURL, registrationKey));
+                string confirmationurl = string.Concat(_emailSettings.RegistrationURL, userName);
+                emailTemplate = "Click below link for confirm email {confirmRegistrationUrl}";
+                emailTemplate = emailTemplate.Replace("{confirmRegistrationUrl}", confirmationurl);
                 await SendMailAsync(new List<string>() { userName }, _emailSettings.FromEmail, "Verify your email address", emailTemplate, null);
             }
             catch (Exception x)
@@ -47,7 +48,6 @@ namespace CAI.Business.Email
             var finalResult = true;
             foreach (var item in to)
             {
-                //TODO : Add email functionality
                 MailMessage mail = new MailMessage();
                 SmtpClient SmtpServer = new SmtpClient(_emailSettings.MailServer);
 
@@ -56,7 +56,7 @@ namespace CAI.Business.Email
                 mail.Subject = subject;
                 mail.Body = messageText;
 
-                SmtpServer.Port = 587;
+                SmtpServer.Port = _emailSettings.Port;
                 SmtpServer.Credentials = new System.Net.NetworkCredential(_emailSettings.FromEmail,_emailSettings.MailServerPassword);
                 SmtpServer.EnableSsl = true;
                 SmtpServer.Send(mail);

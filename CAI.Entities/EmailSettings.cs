@@ -10,7 +10,7 @@ namespace CAI.Entities
         public string RegistrationURL { get; set; }
         public string MailServer { get; set; }
         public string MailServerPassword { get; set; }
-        public string Port { get; set; }
+        public int Port { get; set; }
         public string EmailTemplateURL { get; set; }
     }
 }

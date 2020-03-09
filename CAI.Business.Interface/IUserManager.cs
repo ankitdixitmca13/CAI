@@ -13,5 +13,7 @@ namespace CAI.Business.Contracts
         IList<UserEntity> GetAllUser();
         UserEntity GetUserById(int userId);
         UserEntity AuthenticateUser(string username, string password);
+        bool ConfirmEmail(EmailEntity emailModel);
+        bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity);
     }
 }

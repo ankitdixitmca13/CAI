@@ -56,7 +56,34 @@ namespace CAI.Repository
                 throw;
             }
         }
-
+        public bool ConfirmEmail(EmailEntity emailEntity)
+        {
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@EmailId", emailEntity.EmailKey);
+                SqlMapper.Execute(con, "usp_UpdateEmailConfirmation", parameters, commandType: StoredProcedure);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity)
+        {
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@MobileNo", phoneNoEntity.PhoneNo);
+                SqlMapper.Execute(con, "usp_UpdateMobileConfirmation", parameters, commandType: StoredProcedure);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public bool UpdateUser(UserEntity user)
         {
             try

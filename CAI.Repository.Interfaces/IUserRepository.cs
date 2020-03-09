@@ -12,5 +12,7 @@ namespace CAI.Repository.Contracts
         bool DeleteUser(int userId);
         IList<UserEntity> GetAllUser();
         UserEntity GetUserById(int userId);
+        bool ConfirmEmail(EmailEntity emailModel);
+        bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity);
     }
 }

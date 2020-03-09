@@ -13,7 +13,7 @@ namespace CAI.WebAPI.Controllers
     public class UserController : ControllerBase
     {
         IUserManager _userManager;
-       
+
         public UserController(IUserManager userManager)
         {
             _userManager = userManager;
@@ -47,7 +47,7 @@ namespace CAI.WebAPI.Controllers
         [HttpPost]
         public void Post([FromBody] UserEntity user)
         {
-              _userManager.AddUser(user);
+            _userManager.AddUser(user);
         }
         // PUT api/user/5  
         [HttpPut("{id}")]
@@ -60,6 +60,17 @@ namespace CAI.WebAPI.Controllers
         public void Delete(int id)
         {
             _userManager.DeleteUser(id);
+        }
+        [AllowAnonymous]
+        [HttpPost("confirmemail")] 
+        public bool Post([FromBody]EmailEntity emailModel)
+        {
+            return _userManager.ConfirmEmail(emailModel);
+        }
+        [HttpPost("confirmphoneno")]
+        public bool Post([FromBody]PhoneNoEntity phoneNoEntity)
+        {
+            return _userManager.ConfirmPhoneNo(phoneNoEntity);
         }
     }
 }

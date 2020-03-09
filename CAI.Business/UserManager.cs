@@ -81,5 +81,13 @@ namespace CAI.Business
 
             return user.WithoutPassword();
         }
+        public bool ConfirmEmail(EmailEntity emailModel)
+        {
+            return _userRepository.ConfirmEmail(emailModel);
+        }
+        public bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity)
+        {
+            return _userRepository.ConfirmPhoneNo(phoneNoEntity);
+        }
     }
 }
