@@ -84,6 +84,36 @@ namespace CAI.Repository
                 throw ex;
             }
         }
+        public bool UpdatePanNo(PanNoEntity panNoEntity)
+        {
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@UserId", panNoEntity.UserId);
+                parameters.Add("@PanNo", panNoEntity.PanNo);
+                SqlMapper.Execute(con, "usp_UpdatePanNo", parameters, commandType: StoredProcedure);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
+        public bool SaveOtp(int userId,string otp)
+        {
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@UserId", userId);
+                parameters.Add("@Otp", otp);
+                SqlMapper.Execute(con, "usp_UpdateOtp", parameters, commandType: StoredProcedure);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public bool UpdateUser(UserEntity user)
         {
             try

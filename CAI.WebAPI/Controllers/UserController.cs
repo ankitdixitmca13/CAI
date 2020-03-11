@@ -27,6 +27,8 @@ namespace CAI.WebAPI.Controllers
 
             if (user == null)
                 return BadRequest(new { message = "Username or password is incorrect" });
+            else if (!user.IsEmailVerified)
+                return BadRequest(new { message = "Please verify email" });
 
             return Ok(user);
         }
@@ -62,7 +64,7 @@ namespace CAI.WebAPI.Controllers
             _userManager.DeleteUser(id);
         }
         [AllowAnonymous]
-        [HttpPost("confirmemail")] 
+        [HttpPost("confirmemail")]
         public bool Post([FromBody]EmailEntity emailModel)
         {
             return _userManager.ConfirmEmail(emailModel);
@@ -71,6 +73,16 @@ namespace CAI.WebAPI.Controllers
         public bool Post([FromBody]PhoneNoEntity phoneNoEntity)
         {
             return _userManager.ConfirmPhoneNo(phoneNoEntity);
+        }
+        [HttpPost("generateotp")]
+        public string Get([FromBody]PhoneNoEntity phoneNoEntity)
+        {
+            return _userManager.GenerateOtp(phoneNoEntity.UserId,phoneNoEntity.PhoneNo);
+        }
+        [HttpPost("updatepan")]
+        public bool Post([FromBody]PanNoEntity panNoEntity)
+        {
+            return _userManager.UpdatePanNo(panNoEntity);
         }
     }
 }

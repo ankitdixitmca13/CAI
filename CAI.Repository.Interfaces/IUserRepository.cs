@@ -14,5 +14,7 @@ namespace CAI.Repository.Contracts
         UserEntity GetUserById(int userId);
         bool ConfirmEmail(EmailEntity emailModel);
         bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity);
+        bool SaveOtp(int userId, string otp);
+        bool UpdatePanNo(PanNoEntity panNoEntity);
     }
 }
