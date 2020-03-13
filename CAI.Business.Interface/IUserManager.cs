@@ -15,7 +15,8 @@ namespace CAI.Business.Contracts
         UserEntity AuthenticateUser(string username, string password);
         bool ConfirmEmail(EmailEntity emailModel);
         bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity);
-        string GenerateOtp(int userId, string phoneNo);
+        bool GenerateOtp(int userId, string phoneNo);
         bool UpdatePanNo(PanNoEntity panNoEntity);
+        bool ValidateOtp(PhoneNoEntity phoneNoEntity);
     }
 }

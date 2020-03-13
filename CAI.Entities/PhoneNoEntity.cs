@@ -4,6 +4,6 @@
     {
         public int UserId { get; set; }
         public string PhoneNo { get; set; }
-        public string OTP { get; set; }
+        public string Otp { get; set; }
     }
 }

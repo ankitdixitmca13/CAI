@@ -75,9 +75,14 @@ namespace CAI.WebAPI.Controllers
             return _userManager.ConfirmPhoneNo(phoneNoEntity);
         }
         [HttpPost("generateotp")]
-        public string Get([FromBody]PhoneNoEntity phoneNoEntity)
+        public bool Get([FromBody]PhoneNoEntity phoneNoEntity)
         {
             return _userManager.GenerateOtp(phoneNoEntity.UserId,phoneNoEntity.PhoneNo);
+        }
+        [HttpPost("validateotp")]
+        public bool ValidateOtp([FromBody]PhoneNoEntity phoneNoEntity)
+        {
+            return _userManager.ValidateOtp(phoneNoEntity);
         }
         [HttpPost("updatepan")]
         public bool Post([FromBody]PanNoEntity panNoEntity)

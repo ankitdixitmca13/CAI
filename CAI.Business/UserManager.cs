@@ -20,6 +20,9 @@ namespace CAI.Business
         private readonly AppSettings _appSettings;
         IEncryptionManager _encryptionManager;
         IConfirmRegistrationEmailService _confirmRegistrationEmailService;
+        public const string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        public const string small_alphabets = "abcdefghijklmnopqrstuvwxyz";
+        public const string numbers = "1234567890";
         public UserManager(IUserRepository userRepository, IOptions<AppSettings> appSettings, IEncryptionManager encryptionManager, IConfirmRegistrationEmailService confirmRegistrationEmailService)
         {
             _userRepository = userRepository;
@@ -94,12 +97,12 @@ namespace CAI.Business
             panNoEntity.PanNo = _encryptionManager.EncryptValue(panNoEntity.PanNo);
             return _userRepository.UpdatePanNo(panNoEntity);
         }
-        public string GenerateOtp(int userId, string phoneNo)
+        public bool ValidateOtp(PhoneNoEntity phoneNoEntity)
         {
-            string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-            string small_alphabets = "abcdefghijklmnopqrstuvwxyz";
-            string numbers = "1234567890";
-
+            return _userRepository.ValidateOtp(phoneNoEntity);
+        }
+        public bool GenerateOtp(int userId, string phoneNo)
+        {
             string characters = numbers;
             string otp = string.Empty;
             for (int i = 0; i < 6; i++)
@@ -113,8 +116,7 @@ namespace CAI.Business
                 otp += character;
             }
             //store otp 
-            _userRepository.SaveOtp(userId, otp);
-            return otp;
+           return _userRepository.SaveOtp(userId, otp);
         }
     }
 }

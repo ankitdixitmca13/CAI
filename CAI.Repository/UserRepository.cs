@@ -84,6 +84,21 @@ namespace CAI.Repository
                 throw ex;
             }
         }
+        public bool ValidateOtp(PhoneNoEntity phoneNoEntity)
+        {
+            try
+            {
+                DynamicParameters parameters = new DynamicParameters();
+                parameters.Add("@UserId", phoneNoEntity.UserId);
+                parameters.Add("@MobileNo", phoneNoEntity.PhoneNo);
+                parameters.Add("@Otp", phoneNoEntity.Otp);
+                return SqlMapper.Query<bool>((SqlConnection)con, "usp_ValidateOtp", parameters, commandType: StoredProcedure).FirstOrDefault();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
         public bool UpdatePanNo(PanNoEntity panNoEntity)
         {
             try

@@ -16,5 +16,6 @@ namespace CAI.Repository.Contracts
         bool ConfirmPhoneNo(PhoneNoEntity phoneNoEntity);
         bool SaveOtp(int userId, string otp);
         bool UpdatePanNo(PanNoEntity panNoEntity);
+        bool ValidateOtp(PhoneNoEntity phoneNoEntity);
     }
 }
