@@ -9,9 +9,13 @@ using static System.Data.CommandType;
 
 namespace CAI.Repository
 {
-    public class UserRepository : BaseRepository, IUserRepository
+    public class UserRepository : IUserRepository
     {
-    
+        private readonly IBaseConnectionFactory _connectionFactory;
+        public UserRepository(IBaseConnectionFactory connectionFactory)
+        {
+            _connectionFactory = connectionFactory;
+        }
         public bool AddUser(UserEntity user)
         {
             try
@@ -23,7 +27,7 @@ namespace CAI.Repository
                 parameters.Add("@MobileNo", user.MobileNo);
                 parameters.Add("@IsActivated", user.IsActivated);
                 parameters.Add("@IsDeleted", user.IsDeleted);
-                SqlMapper.Execute(con, "usp_AddUsers",  parameters, commandType:StoredProcedure);
+                SqlMapper.Execute(_connectionFactory.GetConnection, "usp_AddUsers",  parameters, commandType:StoredProcedure);
                 return true;
             }
             catch (Exception ex)
@@ -39,7 +43,7 @@ namespace CAI.Repository
 
         public IList<UserEntity> GetAllUser()
         {
-            IList<UserEntity> userList = SqlMapper.Query<UserEntity>(con, "usp_UserSelectAll", commandType:StoredProcedure).ToList();
+            IList<UserEntity> userList = SqlMapper.Query<UserEntity>(_connectionFactory.GetConnection, "usp_UserSelectAll", commandType:StoredProcedure).ToList();
             return userList;
         }
 
@@ -49,7 +53,7 @@ namespace CAI.Repository
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@Id", userId);
-                return SqlMapper.Query<UserEntity>((SqlConnection)con, "usp_GetUserById", parameters, commandType:StoredProcedure).FirstOrDefault();
+                return SqlMapper.Query<UserEntity>((SqlConnection)_connectionFactory.GetConnection, "usp_GetUserById", parameters, commandType:StoredProcedure).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -62,7 +66,7 @@ namespace CAI.Repository
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@EmailId", emailEntity.EmailKey);
-                SqlMapper.Execute(con, "usp_UpdateEmailConfirmation", parameters, commandType: StoredProcedure);
+                SqlMapper.Execute(_connectionFactory.GetConnection, "usp_UpdateEmailConfirmation", parameters, commandType: StoredProcedure);
                 return true;
             }
             catch (Exception ex)
@@ -76,7 +80,7 @@ namespace CAI.Repository
             {
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@MobileNo", phoneNoEntity.PhoneNo);
-                SqlMapper.Execute(con, "usp_UpdateMobileConfirmation", parameters, commandType: StoredProcedure);
+                SqlMapper.Execute(_connectionFactory.GetConnection, "usp_UpdateMobileConfirmation", parameters, commandType: StoredProcedure);
                 return true;
             }
             catch (Exception ex)
@@ -92,7 +96,7 @@ namespace CAI.Repository
                 parameters.Add("@UserId", phoneNoEntity.UserId);
                 parameters.Add("@MobileNo", phoneNoEntity.PhoneNo);
                 parameters.Add("@Otp", phoneNoEntity.Otp);
-                return SqlMapper.Query<bool>((SqlConnection)con, "usp_ValidateOtp", parameters, commandType: StoredProcedure).FirstOrDefault();
+                return SqlMapper.Query<bool>((SqlConnection)_connectionFactory.GetConnection, "usp_ValidateOtp", parameters, commandType: StoredProcedure).FirstOrDefault();
             }
             catch (Exception ex)
             {
@@ -106,7 +110,7 @@ namespace CAI.Repository
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@UserId", panNoEntity.UserId);
                 parameters.Add("@PanNo", panNoEntity.PanNo);
-                SqlMapper.Execute(con, "usp_UpdatePanNo", parameters, commandType: StoredProcedure);
+                SqlMapper.Execute(_connectionFactory.GetConnection, "usp_UpdatePanNo", parameters, commandType: StoredProcedure);
                 return true;
             }
             catch (Exception ex)
@@ -121,7 +125,7 @@ namespace CAI.Repository
                 DynamicParameters parameters = new DynamicParameters();
                 parameters.Add("@UserId", userId);
                 parameters.Add("@Otp", otp);
-                SqlMapper.Execute(con, "usp_UpdateOtp", parameters, commandType: StoredProcedure);
+                SqlMapper.Execute(_connectionFactory.GetConnection, "usp_UpdateOtp", parameters, commandType: StoredProcedure);
                 return true;
             }
             catch (Exception ex)
@@ -141,7 +145,7 @@ namespace CAI.Repository
                 parameters.Add("@MobileNo", user.MobileNo);
                 parameters.Add("@IsActivated", user.IsActivated);
                 parameters.Add("@IsDeleted", user.IsDeleted);
-                SqlMapper.Execute(con, "usp_UpdateUser",  parameters, commandType:StoredProcedure);
+                SqlMapper.Execute(_connectionFactory.GetConnection, "usp_UpdateUser",  parameters, commandType:StoredProcedure);
                 return true;
             }
             catch (Exception ex)

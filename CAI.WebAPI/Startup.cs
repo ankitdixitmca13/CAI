@@ -33,17 +33,14 @@ namespace CAI.WebAPI
             services.AddControllers();
 
             // configure strongly typed settings objects
-            var connectionStringsSection = Configuration.GetSection("ConnectionStrings");
-            services.Configure<ConnectionStrings>(connectionStringsSection);
+            services.Configure<ConnectionStrings>(Configuration.GetSection("ConnectionStrings"));
 
-            var appSettingsSection = Configuration.GetSection("AppSettings");
-            services.Configure<AppSettings>(appSettingsSection);
+            services.Configure<AppSettings>(Configuration.GetSection("AppSettings"));
 
-            var emailSettingsSection = Configuration.GetSection("EmailSettings");
-            services.Configure<EmailSettings>(emailSettingsSection);
+            services.Configure<EmailSettings>(Configuration.GetSection("EmailSettings"));
 
             // configure jwt authentication
-            var appSettings = appSettingsSection.Get<AppSettings>();
+            var appSettings = Configuration.GetSection("AppSettings").Get<AppSettings>();
             var key = Encoding.ASCII.GetBytes(appSettings.Secret);
             services.AddAuthentication(x =>
             {
@@ -64,9 +61,10 @@ namespace CAI.WebAPI
             });
 
             // configure DI for application services
+            services.AddTransient<IBaseConnectionFactory, BaseConnectionFactory>();
             services.AddSingleton<IUserManager, UserManager>();
             services.AddSingleton<IUserRepository, UserRepository>();
-            services.AddSingleton<IEncryptionManager,EncryptionManager>();
+            services.AddSingleton<IEncryptionManager, EncryptionManager>();
             services.AddSingleton<IConfirmRegistrationEmailService, ConfirmRegistrationEmailService>();
         }
 
@@ -80,13 +78,14 @@ namespace CAI.WebAPI
                 .AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
-            
+
             app.UseSerilogRequestLogging();
 
             app.UseAuthentication();
             app.UseAuthorization();
 
-            app.UseEndpoints(endpoints => {
+            app.UseEndpoints(endpoints =>
+            {
                 endpoints.MapControllers();
             });
 

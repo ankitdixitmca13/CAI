@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CAI.Entities
+﻿namespace CAI.Entities
 {
     public class ConnectionStrings
     {
-        public string IdentityConnection { get; set; }
+        public string DbConnectionString { get; set; }
     }
 }
