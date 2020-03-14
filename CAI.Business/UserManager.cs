@@ -33,12 +33,23 @@ namespace CAI.Business
         public bool AddUser(UserEntity user)
         {
             var result = new bool();
-            user.Password = _encryptionManager.EncryptValue(user.Password);
-            result = _userRepository.AddUser(user);
-            //TODO : Send registratation email 
-            if (result)
-                _confirmRegistrationEmailService.SendRegistrationEmailAsync(0, user.EmailId, "", "");
-            return result;
+            
+            //validate user already exits
+            var _users = _userRepository.GetAllUser();
+            var _user = _users.SingleOrDefault(x => (x.EmailId == user.EmailId));
+            if (object.ReferenceEquals(_user, null))
+            {
+                user.Password = _encryptionManager.EncryptValue(user.Password);
+                result = _userRepository.AddUser(user);
+                //TODO : Send registratation email 
+                if (result)
+                    _confirmRegistrationEmailService.SendRegistrationEmailAsync(0, user.EmailId, "", "");
+                return result;
+            }
+            else
+            {
+                return false;
+            }
         }
         public bool DeleteUser(int userId)
         {

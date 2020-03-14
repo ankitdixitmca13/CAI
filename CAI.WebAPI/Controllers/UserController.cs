@@ -47,9 +47,12 @@ namespace CAI.WebAPI.Controllers
         // POST api/user  
         [AllowAnonymous]
         [HttpPost]
-        public void Post([FromBody] UserEntity user)
+        public IActionResult Post([FromBody] UserEntity user)
         {
-            _userManager.AddUser(user);
+            if (_userManager.AddUser(user))
+                return Ok(true);
+            else
+                return BadRequest("User already exists!");
         }
         // PUT api/user/5  
         [HttpPut("{id}")]
@@ -77,12 +80,15 @@ namespace CAI.WebAPI.Controllers
         [HttpPost("generateotp")]
         public bool Get([FromBody]PhoneNoEntity phoneNoEntity)
         {
-            return _userManager.GenerateOtp(phoneNoEntity.UserId,phoneNoEntity.PhoneNo);
+            return _userManager.GenerateOtp(phoneNoEntity.UserId, phoneNoEntity.PhoneNo);
         }
         [HttpPost("validateotp")]
-        public bool ValidateOtp([FromBody]PhoneNoEntity phoneNoEntity)
+        public IActionResult ValidateOtp([FromBody]PhoneNoEntity phoneNoEntity)
         {
-            return _userManager.ValidateOtp(phoneNoEntity);
+            if (_userManager.ValidateOtp(phoneNoEntity))
+                return Ok(true);
+            else
+                return BadRequest(new { message = "OTP was enterd incorrect" });
         }
         [HttpPost("updatepan")]
         public bool Post([FromBody]PanNoEntity panNoEntity)
